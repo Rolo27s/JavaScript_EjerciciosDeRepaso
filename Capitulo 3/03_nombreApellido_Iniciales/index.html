@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NombreApellido</title>
+</head>
+<body>
+    <h1>Nombre y Apellido a Siglas</h1>
+    <label for="frase">Escribe tu nombre y apellidos: </label> <!-- El for del label debe coincidir con el id del input vinculado -->
+    <input type="text" name="frase" id="frase">
+    <br>
+    <input type="submit" value="Ver siglas" onclick="generarSiglas(frase.value)">
+    <p id="solucion"></p>
+    <script src="code.js"></script>
+</body>
+</html>
