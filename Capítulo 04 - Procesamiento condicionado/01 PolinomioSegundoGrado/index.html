@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>01 PolinomioSegundoGrado</title>
+</head>
+<body>
+    <h1>01 PolinomioSegundoGrado</h1>
+    <h2>Ax² + Bx + C</h2> <!-- /* ALT + 0178 */ -->
+    <Label for="A">Valor de A </Label>
+    <input type="number" name="A" id="A">
+    <br>
+
+    <Label for="B">Valor de B </Label>
+    <input type="number" name="B" id="B">
+    <br>
+
+    <Label for="C">Valor de C </Label>
+    <input type="number" name="C" id="C">
+    <br>
+
+    <input type="submit" value="Solucion" onclick="solve(A.value, B.value, C.value)">
+    <p id="Solucion"></p>
+    <script src="code.js"></script>
+</body>
+</html>
