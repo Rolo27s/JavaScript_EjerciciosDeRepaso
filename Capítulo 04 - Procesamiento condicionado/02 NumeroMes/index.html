@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 NumeroMes</title>
+</head>
+<body>
+    <h1>Numero del mes</h1>
+    <!-- Esta sería la manera correcta de interactuar con el usuario, pero me faltan conocimientos de PHP -->
+    <!-- <form action="/action_page.php" method="post">
+        <label for="mes">Numero del mes</label>
+        <input type="number" name="mes" id="mes" min="1" max="12" placeholder="1 to 12" required>
+        <input type="submit" value="submit" onclick="queMes()">
+    </form> -->
+
+
+        <label for="mes">Numero del mes</label>
+        <input type="number" name="mes" id="mes" min="1" max="12" placeholder="1 to 12" required>
+        <input type="submit" value="submit" onclick="queMes(mes.value)">
+
+    <p>Has seleccionado <strong id="sol">MES</strong></p>
+    
+    <script src="code.js"></script>
+</body>
+</html>
