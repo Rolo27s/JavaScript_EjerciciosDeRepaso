@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : Función.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Llamada un procedimeinto que muestra el doble de dos valores pasados como argumentos
+(los dos valores pasados como argumentos se introducirán por medio del teclado)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+	<!-- Inicio encabezado script HTML -->
+	<head>
+
+		<!-- Etiqueta meta -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Título del script HTML -->
+		<title>Función</title>
+
+	</head>
+
+	<!-- Inicio sección body del script HTML -->
+	<body>
+
+		<!-- Título de la operación -->
+		<h1>Ediciones ENI - JavaScript - Ejercicio Función</h1>
+
+		<!-- Inicio script JavaScript -->
+		<script>
+			
+			/* Función maxi (determinación del máximo por dos chiffres) */
+			function maxi(x, y) {
+				/* Determinación del máximo */
+				if (x > y) {
+					return x;
+				} else {
+					return y;
+				}
+			}
+
+			/* Visualización del nombre del script */
+			alert("Ejercicio Función");
+
+			/* Declaración de variables locales */
+			var a, b, c, d;
+
+			/* Introducir los argumentos a y b */
+			a = parseInt(prompt("Argumento a :"));
+			b = parseInt(prompt("Argumento b :"));
+
+			/* Llamada a la función maxi */
+			alert("Máximo : " + maxi(a, b));
+
+			/* Introducir los argumentos c y d */
+			c = parseInt(prompt("Argumento c :"));
+			d = parseInt(prompt("Argumento d :"));
+
+			/* Llamada a la función maxi */
+			document.write("Máximo : " + maxi(c, d));
+
+		</script>
+
+	</body>
+
+</html>
