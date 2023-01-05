@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_08.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (control de opción en una lista desplegable con atributos size, selected y optgroup)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_08</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/*
+		Función que muestra las opciones (multiples) realizadas
+		en una lista desplegable
+		*/
+		function controlarOpcionLista(lista) {
+			let cont = 0;
+			for (i = 0; i < document.forms.formulario.lista.options.length; i++) {
+				if (document.forms.formulario.lista.options[i].selected) {
+					alert("Deporte seleccionado : " + document.forms.formulario.lista.options[i].text);
+					cont++;
+				}
+			}
+			if (cont == 0) alert("Elige al menos un deporte, ni que sea por quedar bien");
+			// Valor de retorno
+			return true
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_08</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_08");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form name='formulario'>
+		Deporte practicado :
+		<select id='lista' size='7' multiple>
+			<optgroup label="Deportes de equipo">
+				<option value="futbol" selected>Futbol</option>
+				<option value="volley">Volley Ball</option>
+			</optgroup>
+			<optgroup label="Deportes individuales">
+				<option value="golf">Golf</option>
+				<option value="natacion" selected>Natación</option>
+				<option value="tenis">Tenis</option>
+			</optgroup>
+		</select>
+		<input type='button' onclick="controlarOpcionLista(document.getElementById('lista'))"
+			value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>

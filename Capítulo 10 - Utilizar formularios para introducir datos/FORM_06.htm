@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_06.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (control de validez de una dirección email)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_06</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Función que verifica  la validez de la estructura de una dirección email */
+		function controlEmail(email, mensajeAlerta) {
+			/* Definición de los valores aceptados */
+			var valoresAceptados = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+			/* Comprueba la estructura de la dirección de Email */
+			if (email.value.match(valoresAceptados)) {
+				/* Valor de retorno */
+				alert("Estructura de dirección de Email correcta");
+				return true;
+			} else {
+				/* Visualización de un mensaje de alerta */
+				alert(mensajeAlerta);
+				/* Foco en el campo con error */
+				email.focus();
+				/* Valor de retorno */
+				return false;
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_06</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_06");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form>
+		Email :
+		<input type='text' id='email' />
+		<input type='button' onclick="controlEmail(document.getElementById('email'), 'Dirección Email no valida')"
+			value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>

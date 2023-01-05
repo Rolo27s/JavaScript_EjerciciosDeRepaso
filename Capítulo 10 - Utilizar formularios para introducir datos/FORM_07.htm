@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_07.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (control de opción en una lista desplegable)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_07</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Función que verifica si se ha hecho una elección en una lista desplegable */
+		function controlarOpcionLista(lista, mensajeAlerta) {
+			if (lista.value == "-- Su deporte favorito --") {
+				/* Visualización de un mensaje de alerta */
+				alert(mensajeAlerta);
+				/* Foco en el campo con error */
+				lista.focus();
+				/* Valor de retorno */
+				return false;
+			} else {
+				/* Valor de retorno */
+				alert("Su deporte preferido : " + lista.value);
+				return true;
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_07</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_07");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form>
+		Deporte practicado :
+		<select id='lista'>
+			<option>-- Su deporte favorito --</option>
+			<option>Golf</option>
+			<option>Futbol</option>
+			<option>Natación</option>
+			<option>Tenis</option>
+		</select>
+		<input type='button' onclick="controlarOpcionLista(document.getElementById('lista'),
+			'Seleccione un deporte de la lista')" value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>

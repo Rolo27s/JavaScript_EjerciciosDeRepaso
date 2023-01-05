@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_02.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (control de introducción de datos numéricos)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_02</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Función que verifica  los datos introducidos numérico */
+		function esNumerico(campo, mensajeAlerta) {
+			/* Definición de los valores aceptados */
+
+			/* 
+			Esto son usos de expresiones regulares. 
+			Hay muchísimas para verificar formularios.
+			https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+			https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+			https://regex101.com/
+			*/
+
+			/* En este caso concreto ^ significa comienzo del string, $ final del string, y + que los valores indicados sean consecutivos*/
+
+			var valoresAceptados = /^[0-9]+$/;
+			if (campo.value.match(valoresAceptados)) {
+				/* Valor de retorno */
+				alert("Ha rellenado " + document.getElementById('numero').value);
+				return true;
+			} else {
+				/* Visualización de un mensaje de alerta */
+				alert(mensajeAlerta);
+				/* Foco en el campo con error */
+				campo.focus();
+				/* Valor de retorno */
+				return false;
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_02</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_02");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form>
+		Cantidad (introducir un número entero) :
+		<input type='number' id='numero' />
+		<input type='button' onclick="esNumerico(document.getElementById('numero'),
+			'Error...Introducir número entero')" value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>

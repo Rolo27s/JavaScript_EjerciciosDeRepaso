@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_05.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (control de longitud de introducción de datos)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_05</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Funciíón de restricciíón de longitud de introducciíón de datos */
+		function longitudIntroducir(campo, longitudMinima, longitudMaxima, mensajeAlerta) {
+			/* Comprueba la longitud de la introducida */
+			if (campo.value.length >= longitudMinima && campo.value.length <= longitudMaxima) {
+				/* Valor de retorno */
+				alert("Ha rellenado " + document.getElementById('introducida').value);
+				return true;
+			} else {
+				/* Visualizaciíón de un mensaje de alerta */
+				alert(mensajeAlerta);
+				/* Foco en el campo con error */
+				campo.focus();
+				/* Valor de retorno */
+				return false;
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio secciíón body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_05</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_05");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form>
+		Campo (entre 5 y 10 caracteres obligatoriamente) :
+		<input type='text' id='introducida' />
+		<input type='button' onclick="longitudIntroducir(document.getElementById('introducida'),
+			5, 10, 'Introducir entre 5 y 10 caracteres')" value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>

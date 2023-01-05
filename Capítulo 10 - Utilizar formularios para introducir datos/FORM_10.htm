@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- NOMBRE DEL SCRIPT : FORM_10.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 05/01/2023
+OBJETIVO : Gestión de formulario  (controles de tipo casillas de selección)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- Título del script HTML -->
+	<title>FORM_10</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/*
+		Función que verifica  los valores seleccionados
+		en un juego de casillas de selección
+		*/
+		function seleccionDeportes(mensajeAlerta) {
+			/*
+			Recuperación de los deportes propuestos
+			en el formulario en una tabla
+			*/
+			var tabDeportes = document.forms.lista_deportes.elements["deportes[]"];
+			/* Determinación del número deportes propuestos */
+			var numeroDeportes = tabDeportes.length;
+			// alert("Número deportes : " + numeroDeportes);
+			/* Recorrido de la tabla de los deportes propuestos */
+			var i = 0;
+			var numeroDeportesSeleccionados = 0;
+			while (i < numeroDeportes) {
+				/* Verifica si el deporte se ha marcado */
+				if (tabDeportes[i].checked) {
+					/* Incremento del número de deportes seleccionados */
+					numeroDeportesSeleccionados = numeroDeportesSeleccionados + 1;
+					/* Visualización de de control */
+					alert("Su deporte favorito es " + tabDeportes[i].value);
+				}
+				i = i + 1;
+			}
+			/* Mensaje de alerta si no se ha seleccionado ningún deporte */
+			if (numeroDeportesSeleccionados == 0) {
+				/* Mensaje de alerta */
+				alert(mensajeAlerta);
+				/* Valor de retorno */
+				return false;
+			} else {
+				/* Valor de retorno */
+				return true;
+
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - FORM_10</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("FORM_10");
+
+	</script>
+
+	<!-- Formulario de introducción de datos HTML -->
+	<form name="lista_deportes">
+		Deportes preferidos :
+		<br />
+		<input type="checkbox" name="deportes[]" value="golf">
+		Golf </input>
+		<br>
+		<input type="checkbox" name="deportes[]" value="futbol">
+		Futbol </input>
+		<br>
+		<input type="checkbox" name="deportes[]" value="natación">
+		Natación </input>
+		<br>
+		<input type="checkbox" name="deportes[]" value="tenis">
+		Tenis </input>
+		<br>
+		<input type='button' onclick="seleccionDeportes
+			('Seleccione sus deportes preferidos')" value='Validación introducida' />
+	</form>
+
+</body>
+
+</html>
