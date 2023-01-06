@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo_01</title>
+</head>
+
+<body>
+    <h1>Ediciones ENI - JavaScript - Ejemplo_01</h1>
+    <div id="container">
+        Antiguo div
+    </div>
+    <script type='text/javascript'>
+        /* Búsqueda del elemento div con identificador container */
+        let antiguoContainer = document.getElementById("container");
+
+        /* Creación en memoria de un elemento div */
+        let nuevoDiv = document.createElement("div");
+
+        /* Creación del nodo de tipo texto */
+        let textoDiv = document.createTextNode("Buenos días, mundo");
+
+        /* Asignación del nodo textoDiv al nodo nuevoDiv */
+        nuevoDiv.appendChild(textoDiv);
+
+        /* Integración del nuevo div */
+        antiguoContainer.appendChild(nuevoDiv);
+
+    </script>
+</body>
+
+</html>

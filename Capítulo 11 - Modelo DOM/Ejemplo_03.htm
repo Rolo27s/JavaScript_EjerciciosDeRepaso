@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo_03</title>
+</head>
+
+<body>
+    <h1>W3C examples</h1>
+    <p>Add a new HTML Element.</p>
+
+    <div id="div1">
+        <p id="p1">This is a paragraph.</p>
+        <p id="p2">This is another paragraph.</p>
+    </div>
+    <script type='text/javascript'>
+        const newP = document.createElement("p");
+        const nodeT = document.createTextNode("This is the new p generated in JS.");
+        newP.appendChild(nodeT);
+
+        const element = document.getElementById("div1");
+        const child = document.getElementById("p1");
+        element.insertBefore(newP, child);
+    </script>
+</body>
+
+</html>
