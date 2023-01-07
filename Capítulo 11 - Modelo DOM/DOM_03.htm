@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : DOM_03.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+OBJETIVO : Gestión DOM - Gestión de enlaces "hypertexto" via DOM en un documento
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>DOM_03</title>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - DOM_03</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("DOM_03");
+
+	</script>
+
+	<!-- Definición de varios enlaces "hypertexto" consecutivos en el documento-->
+	Motor de búsqueda <a href="http://www.google.es" id="google">Google</a>
+	<br />
+	Sitio de información <a href="http://www.yahoo.es" id="yahoo">Yahoo</a>
+	<br />
+	Enciclopedia <a href="http://www.wikipedia.es" id="wikipedia">Wikipedia</a>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Salto de lóíneas */
+		document.write("<br /><br />");
+
+		/* Visualización del número de enlace(s) 'hypertexto' del documento */
+		document.write("Número de enlace(s) 'hypertexto' del documento : " + document.links.length + "<br />");
+
+		/* Visualización identificador del segundo enlace 'hypertexto' del documento */
+		document.write("Identificador del segundo enlace 'hypertexto' del documento : " + document.links[1].id + "<br />");
+
+		/* Visualización de la URL del tercer enlace 'hypertexto' del documento */
+		document.write("URL del tercer enlace 'hypertexto' del documento : " + document.links[2].href);
+
+	</script>
+
+</body>
+
+</html>

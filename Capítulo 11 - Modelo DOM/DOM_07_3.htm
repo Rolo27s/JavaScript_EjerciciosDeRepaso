@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : DOM_07_3.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+OBJETIVO : Gestión DOM - Navegación
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>DOM_07_3</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Función historyBack */
+		function historyBack() {
+			/* Retorno a la página anterior */
+			window.history.back();
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - DOM_07_3</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("DOM_07_3");
+
+		/*
+		Visualización de la URL de la página
+		que da acceso al documento
+		*/
+		/* NO SE PORQUE MOTIVO document.referrer NO FUNCIONA EN ESTE EJEMPLO */
+		document.write("URL de la página que da acceso al documento : " + document.referrer + "<br />");
+
+		/*
+		Visualización del valor del argumento
+		pasado por la página anterior
+		Nota del autor: param contendrá la cadena ?param=Eni%20Javacript
+		*/
+		var param = window.location.search;
+		document.write("Argumento (antes de la codificación) : " + param + "<br />");
+
+		/*
+		Codificación del argumento (ubicación de %20
+		por un espacio en nuestro caso)
+		*/
+		param = unescape(param);
+		document.write("Argumento (después codificación) : " + param + "<br />");
+
+		/*
+		Eliminación del nombre del argumento
+		(libro en nuestro caso)
+		*/
+		param = param.substring(param.lastIndexOf("=") + 1);
+		document.write("Valor del argumento : " + param);
+
+	</script>
+
+	<!-- Formulario -->
+	<br />
+	<br />
+	<form>
+		<input type="button" id="botonHistoryBack" value="Retorno a la página anterior" onclick="historyBack()" />
+	</form>
+
+</body>
+
+</html>

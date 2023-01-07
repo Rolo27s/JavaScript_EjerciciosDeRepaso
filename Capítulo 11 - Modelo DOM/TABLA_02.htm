@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : TABLA_02.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>TABLA_02</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Función colocarLineaArriba */
+		function colocarLineaArriba() {
+			document.getElementById('miTabla').frame = "above";
+		}
+
+		/* Función colocarLineaAbajo */
+		function colocarLineaAbajo() {
+			document.getElementById('miTabla').frame = "below";
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - TABLA_02</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("TABLA_02");
+
+	</script>
+
+	<!-- Tabla HTML -->
+	<table id="miTabla" cellspacing="1" cellpadding="1">
+		<!-- Definición de la línea nº0 de la tabla (título) -->
+		<tr>
+			<td>Modelo</td>
+			<td>Potencia</td>
+		</tr>
+		<!-- Definición de la línea nº1 de la tabla -->
+		<tr>
+			<td>Ferrari 512 BB</td>
+			<td>380</td>
+		</tr>
+		<!-- Definición de la línea nº2 de la tabla -->
+		<tr>
+			<td>Lamborghini Miura</td>
+			<td>385</td>
+		</tr>
+		<!-- Definición de la línea nº3 de la tabla -->
+		<tr>
+			<td>Porsche 964 3.6</td>
+			<td>360</td>
+		</tr>
+	</table>
+
+	<!-- Formulario con botones -->
+	<br />
+	<br />
+	<form>
+		Agregar/Eliminar líneas de delimitación de la tabla
+		<br>
+		<br />
+		<input type="button" id="botonLineaArriba" value="Línea arriba de la tabla" onclick="colocarLineaArriba();" />
+		<br />
+		<input type="button" id="botonLineaAbajo" value="Línea abajo de la tabla" onclick="colocarLineaAbajo();" />
+		<br />
+	</form>
+
+</body>
+
+</html>

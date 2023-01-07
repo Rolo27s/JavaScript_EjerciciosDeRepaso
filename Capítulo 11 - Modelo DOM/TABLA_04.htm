@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : TABLA_04.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>TABLA_04</title>
+
+	<!-- Inicio script JavaScript -->
+
+	<script type='text/javascript'>
+
+		/* Función agregar LineaInicioTabla */
+		function agregarLineaInicioTabla() {
+			/*
+			Añadir una línea vacía en position 1 (bajo el título)
+			*/
+			var tabLinea = document.getElementById('miTabla').insertRow(1);
+
+			/*
+			Añadir una columna 0 (Modelo) en la línea creada
+			y almacenar un valor
+			*/
+			var columna0 = tabLinea.insertCell(0);
+			columna0.innerHTML = "Ferrari F40";
+
+			/*
+			Añadir una columna 1 (Potencia) en la línea creada
+			y almacenar un valor
+			*/
+			var columna1 = tabLinea.insertCell(1);
+			columna1.innerHTML = "478";
+		}
+
+		/* Función agregar LineaFinTabla */
+		function agregarLineaFinTabla() {
+			/*
+			Visualización del número de líneas de la tabla
+			*/
+			var numeroRegistros = parseInt(document.getElementById('miTabla').rows.length);
+			/* alert("Número de línea(s) de la tabla : " + numeroRegistros); */
+
+			/*
+			Añadir una línea vacía después la última línea
+			actual de la tabla
+			*/
+			var tabLinea = document.getElementById('miTabla').insertRow(numeroRegistros);
+
+			/*
+			Añadir una columna 0 (Modelo) en la línea creada
+			y almacenar un valor
+			*/
+			var columna0 = tabLinea.insertCell(0);
+			columna0.innerHTML = "Porsche 959";
+
+			/*
+			Añadir una columna 1 (Potencia) en la línea creada
+			y almacenar un valor
+			*/
+			var columna1 = tabLinea.insertCell(1);
+			columna1.innerHTML = "450";
+		}
+
+		/* Función eliminarLineaTabla */
+		function eliminarLineaTabla() {
+			/*
+			Visualización de control del número de la línea a eliminar
+			en la tabla
+			*/
+			var numeroLinea = parseInt(document.getElementById('numLinea').value);
+			/* alert("Nº de línea a eliminar : " + numeroLinea); */
+			/*
+			Visualización del número de líneas de la tabla
+			*/
+			var numeroRegistros = parseInt(document.getElementById('miTabla').rows.length);
+			/* alert("Número de línea(s) de la tabla : " + numeroRegistros); */
+			/*
+			Eliminación de la línea
+			*/
+			if ((numeroLinea >= 1) && (numeroLinea < numeroRegistros)) {
+				/* Eliminación */
+				document.getElementById('miTabla').deleteRow(numeroLinea);
+			} else {
+				/* Nº de línea errónea */
+				alert("Nº de línea errónea");
+			}
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - TABLA_04</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("TABLA_04");
+
+	</script>
+
+	<!-- Tabla HTML -->
+	<table id="miTabla" border="1" cellspacing="1" cellpadding="1">
+		<!-- Definición de la línea nº0 de la tabla (título) -->
+		<tr>
+			<td>Modelo</td>
+			<td>Potencia</td>
+		</tr>
+		<!-- Definición de la línea nº1 de la tabla -->
+		<tr>
+			<td>Ferrari 512 BB</td>
+			<td>380</td>
+		</tr>
+		<!-- Definición de la línea nº2 de la tabla -->
+		<tr>
+			<td>Lamborghini Miura</td>
+			<td>385</td>
+		</tr>
+		<!-- Definición de la línea nº3 de la tabla -->
+		<tr>
+			<td>Porsche 964 3.6</td>
+			<td>360</td>
+		</tr>
+	</table>
+
+	<!-- Formulario para agregar en primera línea o en última línea -->
+	<br />
+	<hr>
+	<br />
+	Añadir líneas
+	<br>
+	<br />
+	<form name="formularioAgregar">
+		<input type="button" id="botonAgregarLineaInicioTabla" value="Añadir una línea (inicio de tabla)"
+			onclick="agregarLineaInicioTabla()" />
+		<br />
+		<br />
+		<input type="button" id="botonAgregarLineaFinTabla" value="Añadir una línea (fin de tabla)"
+			onclick="agregarLineaFinTabla()" />
+		<br />
+	</form>
+
+	<!-- Formulario de eliminación de líneas -->
+	<br />
+	<hr>
+	<br />
+	Eliminación de líneas
+	<br>
+	<br />
+	<form name="formularioEliminación">
+		Nº de línea a eliminar (nº a partir de 1) :
+		<input type="txt" id="numLinea" value="" />
+		<br />
+		<br />
+		<input type="button" id="botonEliminarLineaTabla" value="Eliminación de una línea"
+			onclick="eliminarLineaTabla()" />
+	</form>
+
+</body>
+
+</html>

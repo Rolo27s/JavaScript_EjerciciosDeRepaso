@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : DOM_05.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+OBJETIVO : Gestión DOM - Gestión de formularios via DOM en un documento
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>DOM_05</title>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - DOM_05</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("DOM_05");
+
+	</script>
+
+	<!-- Definición de varios formularios consecutivos en el documento-->
+	<b>Formulario nº1 :</b>
+	<form name="form1" id="idForm1" method="post">
+		Campo 1 :
+		<input type="text" id="campo1" size="20">
+		<br />
+		Campo 2 :
+		<input type="text" id="campo1" size="20">
+		<br />
+	</form>
+	<br />
+	<b>Formulario nº2 :</b>
+	<form name="form2" id="idForm2">
+		Campo 3 :
+		<input type="text" id="campo3" size="20">
+		<br />
+		Campo 4 :
+		<input type="text" id="campo4" size="20">
+		<br />
+	</form>
+	<br />
+	<b>Formulario nº3 :</b>
+	<form name="form3" id="idForm3">
+		Campo 5 :
+		<input type="text" id="campo5" size="20">
+		<br />
+		Campo 6 :
+		<input type="text" id="campo6" size="20">
+		<br />
+	</form>
+	<br />
+	<br />
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre de formulario(s) del documento */
+		document.write("Número de formulario(s) del documento : " + document.forms.length + "<br />");
+
+		/* Visualización del nombre del primer formulario */
+		document.write("Nombre del primer formulario : " + document.forms[0].name + "<br />");
+
+		/* Visualización identificador del segundo formulario */
+		document.write("Identificador del segundo formulario : " + document.forms[1].id + "<br />");
+
+	</script>
+
+</body>
+
+</html>

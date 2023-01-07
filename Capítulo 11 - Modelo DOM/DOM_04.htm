@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : DOM_04.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+OBJETIVO : Gestión DOM - Gestión de imágenes via DOM en un documento
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>DOM_04</title>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - DOM_04</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del nombre del script */
+		alert("DOM_04");
+
+	</script>
+
+	<!-- Definición de varias imágenes consecutivas en el documento-->
+	<img id="van_van_1" border="1" src="van_van_01.png" width="150" height="100">
+	</img>
+	<br />
+	<br />
+	<img id="van_van_2" border="2" src="van_van_02.png" width="150" height="100">
+	</img>
+	<br />
+	<br />
+	<img id="van_van_3" border="1" src="van_van_03.png" width="150" height="100">
+	</img>
+	<br />
+	<br />
+	<img id="van_van_4" border="2" src="van_van_04.png" width="220" height="150">
+	</img>
+	<br />
+	<br />
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+
+		/* Visualización del número de imagen(es) del documento */
+		document.write("Número de imagen(es) del documento : " + document.images.length + "<br />");
+
+		/* Visualización identificador de la primera imagen */
+		document.write("Identificador de la primera imagen : " + document.images[0].id + "<br />");
+
+		/* Visualización del atributo border de la segunda imagen */
+		document.write("Atributo border de la segunda imagen : " + document.images[1].border + "<br />");
+
+		/* Visualización del atributo src de la tercera imagen */
+		document.write("Atributo src de la tercera imagen : " + document.images[2].src + "<br />");
+
+		/* Visualización de los atributos width y height de la cuarta imagen */
+		document.write("Atributo width de la cuarta imagen : " + document.images[3].width + "<br />");
+		document.write("Atributo height de la cuarta imagen : " + document.images[3].height + "<br />");
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : BOTON_01.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (By Rolo27s): 07/01/2023
+OBJETIVO : Gestión DOM - Gestión de botones y de enlaces de formularios
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>BOTON_01</title>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Función desactiverBotón */
+		function desactivarBoton() {
+			document.getElementById("miBoton").disabled = true;
+		}
+
+		/* Función visualizarNombreBoton */
+		function visualizarNombreBoton(nombreBoton) {
+			alert("El nombre del botón seleccionado es " + nombreBoton);
+		}
+
+		/* Función visualizarIdentificadorBoton */
+		function visualizarIdentificadorBoton(idBoton) {
+			alert("El botón seleccionado tiene como identificador " + idBoton);
+		}
+
+		/* Función visualizarIdentificadorElemento */
+		function visualizarIdentificadorElemento(idElemento) {
+			alert("El enlace seleccionado tiene como identificador " + idElemento);
+		}
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - BOTON_01</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type='text/javascript'>
+		/* Visualización del nombre del script */
+		alert("BOTON_01");
+
+	</script>
+
+	<!-- Formulario con un botón a desactivar -->
+	<form name="formulario1">
+		Un clic en el botón de confirmación lo va a desactivar
+		<br>
+		<br />
+		<input type="button" id="miBoton" value="OK" onclick="desactivarBoton();" />
+	</form>
+
+	<!-- Formulario con 2 botones (obtener el nombre) -->
+	<br />
+	<hr>
+	<br />
+	<form name="formulario2">
+		Un clic en uno de los botones visualizará el nombre (nombre)
+		<br />
+		<br />
+		<input type="button" id="miBoton1" value="Botón1" onclick="visualizarNombreBoton(this.value);" />
+		<br />
+		<input type="button" id="miBoton2" value="Botón2" onclick="visualizarNombreBoton(this.value);" />
+		<br />
+	</form>
+
+	<!-- Formulario con 2 botones y 1 enlace hypertexto (obtener identificador) -->
+	<br />
+	<hr>
+	<br />
+	Un clic en uno de los botones o el enlace hypertexto visualizará el identificador
+	<br />
+	<br />
+	<form name="formulario3">
+		<input type="button" id="miBoton3" value="Botón3" onclick="visualizarIdentificadorElemento(this.id);" />
+		<br />
+		<input type="button" id="miBoton4" value="Botón4" onclick="visualizarIdentificadorElemento(this.id);" />
+		<br />
+		<a href="#" id="myLink" onclick="visualizarIdentificadorElemento(this.id);"> Enlace hipertexto </a>
+	</form>
+
+</body>
+
+</html>
