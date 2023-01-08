@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<!--
+NOMBRE DEL SCRIPT : DOM_XML_02.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 08/01/2023
+CORRECCIONES:
+	encoding from windows-1252 to utf-8
+	metodos corregidos
+COMENTARIOS:
+	Google chrome nos arroja un warning de posible mejora
+	El atributo síncrono XMLHttpRequest en el hilo principal está obsoleto por sus efectos negativos en la experiencia del usuario final. 
+	Para recibir más ayuda, consulta https://xhr.spec.whatwg.org/
+OBJETIVO : Gestión DOM - Lista de las marcas de los coches (archivo coches.xml)
+-->
+
+<!-- Inicio script HTML -->
+<html lang="es">
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>DOM_XML_02_to_DOM_XML_12</title>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - DOM_XML_02_to_DOM_XML_12</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Visualización del nombre del script */
+		alert("DOM_XML_02 to DOM_XML_12");
+
+		/* Creación de un objeto XMLHttpRequest para intercambiar datos con el servidor en formato texto, XML o JSON */
+		/* Nota del autor: Los archivos XML se parsean automáticamente por el objeto y accesibles por los métodos del DOM */
+		if (window.XMLHttpRequest) {
+			// Código específico para los navegadores IE7+, Firefox, Chrome, Opera, Safari
+			var xmlhttp = new XMLHttpRequest();
+		} else {
+			// Código específico para los navegadores IE6, IE5
+			var xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		/* Apertura del archivo XML coches.xml en modo síncrono (false)*/
+		xmlhttp.open("GET", "coches.xml", false);
+		/* Envío de la consulta HTTP al servidor  */
+		xmlhttp.send();
+		/* Creación del documento XML en memoria */
+		var xmlDoc = xmlhttp.responseXML;
+		/* Recuperación del conjunto de los nodos marca (tabla memoria) */
+		var marca = xmlDoc.getElementsByTagName("marca");
+
+
+
+		document.write("<b>Punto 02</b> <br>");
+		/* Escribe la marca del coche uno a uno de forma manual (02)*/
+		/* Visualización de la marca del primer coche */
+		document.write("Marca coche nº1 : " + marca[0].childNodes[0].nodeValue + "<br />");
+		/* Visualización de la marca de el segundo coche */
+		document.write("Marca coche nº2 : " + marca[1].childNodes[0].nodeValue + "<br />");
+		/* Visualización de la marca del tercer coche */
+		document.write("Marca coche nº3 : " + marca[2].childNodes[0].nodeValue);
+
+
+
+		document.write("<br><br> <b>Punto 03</b> <br>");
+		/* Recuperación del conjunto de los nodos marca (tabla memoria) (03)*/
+		var marca = xmlDoc.getElementsByTagName("marca");
+		document.write("Número de coches : " + marca.length + "<br>");
+		for (i = 0; i < marca.length; i++) {
+			/* Visualización de la marca del coche actual */
+			/* Nota del autor: La numeración de los coches empieza por cero */
+			document.write("Marca del coche nº" + (i + 1) + " : " + marca[i].childNodes[0].nodeValue + "<br />");
+		}
+
+
+
+		document.write("<br> <b>Punto 04</b> <br>");
+		/* Visualización de la lista de los nodos unidos a la raíz (04)*/
+		document.write("Lista de los nodos unidos a la raíz :<br />")
+		var listaNodosRaiz = xmlDoc.documentElement.childNodes;
+		for (i = 0; i < listaNodosRaiz.length; i++) {
+			/* Visualización solo de nodos de tipo 1 */
+			if (listaNodosRaiz[i].nodeType == 1) {
+				document.write(" - " + listaNodosRaiz[i].nodeName + "<br />");
+			}
+		}
+		/* Visualización del nombre del nodo raíz */
+		document.write("<br />");
+		document.write("El nodo raíz es " + xmlDoc.documentElement.nodeName + "<br />");
+		/* Visualización del tipo del nodo raíz */
+		document.write("El tipo del nodo raíz es " + xmlDoc.documentElement.nodeType);
+
+
+
+		document.write("<br><br> <b>Punto 05</b> <br>");
+		/*
+			Visualización de lista de los campos (nodos) de cada coche
+			Nota del autor: La lista es basada en estelle del primer coche
+			*/
+		/* Visualización del título de la lista */
+		document.write("Lista de los campos (nodos) de cada coche :<br />")
+		/* Constitution de la lista de los nodos hijos de coche (basada en el primer coche) */
+		listaCamposCoche = xmlDoc.getElementsByTagName("coche")[0].childNodes;
+		/* Inicialización del valor del primer hijo (marca) */
+		campoCoche = xmlDoc.getElementsByTagName("coche")[0].firstChild;
+		/* Recorrido de los hijos */
+		for (i = 0; i < listaCamposCoche.length; i++) {
+			/* Comprueba el tipo del nodo para solo visualizar los nodos elementos */
+			/*
+			nodeType : 1  -> nodo elemento
+			nodeType : 2  -> nodo atributo
+			nodeType : 3  -> nodo texto
+			nodeType : 4  -> nodo de sección CDATA
+			nodeType : 5  -> nodo de referencia a una entidad
+			nodeType : 6  -> nodo de entidad
+			nodeType : 7  -> nodo de instrucción de tratamiento
+			nodeType : 8  -> nodo de comentario
+			nodeType : 9  -> nodo de documento
+			nodeType : 10  -> nodo de tipo de documento
+			nodeType : 11  -> nodo de fragmento de documento
+			nodeType : 12  -> nodo de notación
+			*/
+			if (campoCoche.nodeType == 1) {
+				document.write(" - " + campoCoche.nodeName + "<br />");
+			}
+			/* Pasar al campo siguiente */
+			campoCoche = campoCoche.nextSibling;
+		}
+
+		/*
+		Visualización del nombre de sites Web que describen
+		el segundo coche (númerado 1)
+		*/
+		document.write("<br />");
+		document.write("Lista de los sitios Web que describen el segundo coche :<br />")
+		listaCamposCoche = xmlDoc.getElementsByTagName("coche")[1].childNodes;
+		campoCoche = xmlDoc.getElementsByTagName("coche")[1].firstChild;
+		for (i = 0; i < listaCamposCoche.length; i++) {
+			if (campoCoche.nodeType == 1 && campoCoche.nodeName == "sitio_web") {
+				document.write(' - ' + campoCoche.nodeName + ' : ' + '<a href="' + campoCoche.childNodes[0].nodeValue + '">' + campoCoche.childNodes[0].nodeValue + '</a>' + '<br />');
+			}
+			/* Pasar al campo siguiente */
+			campoCoche = campoCoche.nextSibling;
+		}
+
+
+
+		document.write("<br> <b>Punto 06</b> <br>");
+		/* Ubicación de un valor de nodo (marca) en el primer coche */
+		marcaCoche = xmlDoc.getElementsByTagName("marca")[0].childNodes[0];
+		marcaCoche.nodeValue = "FERRARI ITALIA";
+
+		/* Control de la ubicación realizada */
+		marcaCoche = xmlDoc.getElementsByTagName("marca")[0].childNodes[0];
+		textoMarcaCoche = marcaCoche.nodeValue;
+		document.write("La marca del primer coche es desde ahora : " + textoMarcaCoche);
+
+
+
+		document.write("<br><br> <b>Punto 07</b> <br>");
+		/* Acceso a los attributes del primer coche (númerado 0) */
+		primerCoche = xmlDoc.getElementsByTagName("coche")[0].attributes;
+
+		/* Visualización del valor del atributo origen del primer coche (númerado 0) */
+		document.write("Origen del primer coche : " + primerCoche.getNamedItem("origen").nodeValue + "<br />");
+
+		/* Acceso a los attributes del tercer coche (númerado 2) */
+		tercerCoche = xmlDoc.getElementsByTagName("coche")[2].attributes;
+
+		/* Visualización del valor del atributo origen del tercer coche (númerado 2) */
+		document.write("Origen del tercer coche : " + tercerCoche.getNamedItem("origen").nodeValue + "<br />");
+
+		/* Visualización del valor del atributo grupo del tercer coche (númerado 2) */
+		document.write("Grupo del tercer coche : " + tercerCoche.getNamedItem("grupo").nodeValue);
+
+
+
+		document.write("<br><br> <b>Punto 08</b> <br>");
+		/* Bucle de visualización de la marca de los coches */
+		marcasCoches = xmlDoc.getElementsByTagName("marca");
+		document.write("Número de coches : " + marcasCoches.length + "<br>");
+		for (i = 0; i < marcasCoches.length; i++) {
+			/* Visualización de la marca del coche actual y de su nodo padre */
+			document.write("Marca del coche nº " + (i + 1) + " : " + marcasCoches[i].childNodes[0].nodeValue + " (tiene como padre " + marcasCoches[i].parentNode.nodeName + ")<br />");
+		}
+
+
+
+		document.write("<br> <b>Punto 09</b> <br>");
+		/* Visualización de los nodos hijos (en marcha atrás) del nodo coche para el tercer coche (númerado 2) */
+		listaCamposCoche = xmlDoc.getElementsByTagName("coche")[2].childNodes;
+		campoCoche = xmlDoc.getElementsByTagName("coche")[2].lastChild;
+		for (i = 0; i < listaCamposCoche.length; i++) {
+			if (campoCoche.nodeType == 1) {
+				document.write(" - " + campoCoche.nodeName + " : " + campoCoche.childNodes[0].nodeValue + "<br />");
+			}
+			/* Pasar al campo anterior */
+			campoCoche = campoCoche.previousSibling;
+		}
+		/* Se podría implementar la etiqueta HTML <a> para el hipervínculo */
+
+
+
+		document.write("<br> <b>Punto 10</b> <br>");
+		let coche_10 = xmlDoc.getElementsByTagName("coche");
+		for (i = 0; i < coche_10.length; i++) {
+			/* Ubicación */
+			coche_10[i].setAttribute("origen", "EUROPA");
+			/* Control de la ubicación */
+			document.write("País del constructor del coche nº" + (i + 1) + " : " + coche_10[i].getAttribute("origen") + "<br />");
+		}
+
+
+
+		document.write("<br> <b>Punto 11</b> <br>");
+		/* Etiqueta HTML de inicio de tabla */
+		document.write("<table border='1'>");
+		/* Implementación de la línea de los nombres de las columnas */
+		document.write("<tr>");
+		document.write("<th>");
+		document.write("Marca");
+		document.write("</th>");
+		document.write("<th>");
+		document.write("Modelo");
+		document.write("</th>");
+		document.write("</tr>");
+		/* Recorrido de la lista de los coches */
+		var coche_11 = xmlDoc.getElementsByTagName("coche");
+		for (i = 0; i < coche_11.length; i++) {
+			/* Implementación de una nueva línea en la tabla HTML */
+			document.write("<tr>");
+			/* Apertura de la primera columna (marca del coche) */
+			document.write("<td>");
+			/* Ecritura de la marca del coche  */
+			document.write(coche_11[i].
+				getElementsByTagName("marca")[0]
+				.childNodes[0].nodeValue);
+			/* Cierre de la primera columna */
+			document.write("</td>");
+			/* Apertura de la segunda columna (modelo del coche) */
+			document.write("<td>");
+			/* Ecritura del modelo del coche */
+			document.write(coche_11[i]
+				.getElementsByTagName("modelo")[0]
+				.childNodes[0].nodeValue);
+			/* Cierre de la segunda columna */
+			document.write("</td>");
+			/* Cierre de la línea en la tabla HTML */
+			document.write("</tr>");
+		}
+		/* Etiqueta HTML de fin de tabla */
+		document.write("</table>");
+
+
+
+		document.write("<br> <b>Punto 12</b>");
+		/* Función cargarCoches */
+		function cargarCoches() {
+			/*
+			Creación de un objeto XMLHttpRequest para intercambiar datos
+			con el servidor en formato texto, XML o JSON
+
+			Nota del autor: Los archivos XML se parsean automáticamente
+			por el objeto y accesibles por los métodos del DOM
+			*/
+			if (window.XMLHttpRequest) {
+				// Código específico para los navegadores
+				// IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				// Código específico para los navegadores IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			/* Apertura del archivo XML coches.xml en modo síncrono (false)*/
+			xmlhttp.open("GET", "coches.xml", false);
+
+			/* Envío de la consulta HTTP al servidor  */
+			xmlhttp.send();
+
+			/* Creación del documento XML en memoria */
+			xmlDoc = xmlhttp.responseXML;
+		}
+
+		/* Función visualizarCoches */
+		function visualizarCoches() {
+			/*
+			Creación de la tabla HTML
+			*/
+			/* Etiqueta HTML de inicio de tabla */
+			document.write("<br />");
+			document.write("<table border='1'>");
+			/* Implementación de la línea de los nombres de las columnas */
+			document.write("<tr>");
+			document.write("<th>");
+			document.write("Marca");
+			document.write("</th>");
+			document.write("<th>");
+			document.write("Modelo");
+			document.write("</th>");
+			document.write("</tr>");
+			/* Recorrido de la lista de los coches */
+			var coche = xmlDoc.getElementsByTagName("coche");
+			for (i = 0; i < coche.length; i++) {
+				/* Implementación de una nueva línea en la tabla HTML */
+				document.write("<tr>");
+				/* Apertura de la primera columna (marca del coche) */
+				document.write("<td>");
+				/* Ecritura del título del libro */
+				document.write(coche[i].getElementsByTagName("marca")[0].childNodes[0].nodeValue);
+				/* Cierre de la primera columna */
+				document.write("</td>");
+				/* Apertura de la segunda columna (modelo del coche)) */
+				document.write("<td>");
+				/* Ecritura del modelo del coche */
+				document.write(coche[i].getElementsByTagName("modelo")[0].childNodes[0].nodeValue);
+				/* Cierre de la segunda columna */
+				document.write("</td>");
+				/* Cierre de la línea en la tabla HTML */
+				document.write("</tr>");
+			}
+			/* Etiqueta HTML de fin de tabla */
+			document.write("</table>");
+			/* Valor de retorno */
+			return true;
+		}
+
+		/* Función eliminarCoche */
+		function eliminarCoche() {
+			/* Visualización del número de coche(s) antes de la eliminación */
+			alert("Número de coche(s) antes de la eliminación : " + xmlDoc.getElementsByTagName('coche').length);
+			/* Eliminación del primer coche */
+			let cocheSupprimee = xmlDoc.getElementsByTagName("coche")[0];
+			xmlDoc.documentElement.removeChild(cocheSupprimee);
+			/* Visualización del nombre de coche(s) después de la eliminación */
+			alert("Número de coche(s) después de la eliminación : " + xmlDoc.getElementsByTagName('coche').length);
+			document.write("<br /><br>Lista de los coches después de la eliminación");
+			visualizarCoches();
+			/* Valor de retorno */
+			return true;
+		}
+
+		/* Carga de los coches desde el archivo XML en un árbol */
+		cargarCoches();
+
+		/* Visualización de la lista de los coches */
+		visualizarCoches();
+
+		/* Eliminación del primer coche */
+		var confirmacionEliminacionCoche = confirm("¿Eliminación del primer coche ?");
+		if (confirmacionEliminacionCoche == true) {
+			eliminarCoche();
+		}
+	</script>
+
+</body>
+
+</html>
