@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+    NOMBRE DEL SCRIPT : LOCAL_STORAGE_01.htm
+    AUTOR : Christian VIGOUROUX
+    FECHA DE CREACIÓN : 15/10/2018
+    FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 09/01/2023
+    OBJETIVO : Almacenamiento con utilización de localStorage
+    -->
+
+<!-- Inicio script HTML -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Inicio encabezado script HTML -->
+
+    <!-- Etiqueta meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Título del script HTML -->
+    <title>LOCAL_STORAGE_01</title>
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+
+        /* Declaración de variables comunes a cada función */
+        var denominacion;
+        var nombrePersona;
+        var apellidoPersona;
+        var mailPersona;
+
+        /* Función escribirLocalStorage */
+        function escribirLocalStorage() {
+
+            /* Verifica la posibilidad de usar localStorage */
+            if (typeof localStorage != "undefined") {
+                /* Almacenamiento del nombre (nombrePersona) en el almacén localStorage */
+                nombrePersona = "VIGOUROUX";
+                localStorage.setItem("nombrePersona", nombrePersona);
+                /* Almacenamiento del apellido (apellidoPersona) en el almacén localStorage */
+                apellidoPersona = "Christian";
+                localStorage.setItem("apellidoPersona", apellidoPersona);
+                /* Almacenamiento del mail (mailPersona) en el almacén localStorage */
+                mailPersona = "christian.vigouroux@online.fr";
+                localStorage.setItem("mailPersona", mailPersona);
+                /* Visualización de control */
+                denominacion = "Contenido del localStorage (después de la escritura)";
+                document.getElementById("denominacion").innerHTML = denominacion;
+                document.getElementById("nombrePersona").innerHTML = nombrePersona;
+                document.getElementById("apellidoPersona").innerHTML = apellidoPersona;
+                document.getElementById("mailPersona").innerHTML = mailPersona;
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+        };
+
+        /* Función leerLocalStorage */
+        function leerLocalStorage() {
+
+            /* Verifica la posibilidad de usar localStorage */
+            if (typeof localStorage != "undefined") {
+                /* Recuperación del nombre (nombrePersona) desde el almacén localStorage */
+                nombrePersona = localStorage.getItem("nombrePersona");
+                /* Recuperación del apellido (apellidoPersona) desde el almacén localStorage */
+                apellidoPersona = localStorage.getItem("apellidoPersona");
+                /* Recuperación del mail (mailPersona) desde el almacén localStorage */
+                mailPersona = localStorage.getItem("mailPersona");
+                /* Visualización de control */
+                denominacion = "Contenido del localStorage (después relectura)";
+                document.getElementById("denominacion").innerHTML = denominacion;
+                document.getElementById("nombrePersona").innerHTML = nombrePersona;
+                document.getElementById("apellidoPersona").innerHTML = apellidoPersona;
+                document.getElementById("mailPersona").innerHTML = mailPersona;
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+
+        };
+
+        /* Función eliminarLocalStorage */
+        function eliminarLocalStorage() {
+
+            /* Verifica la posibilidad de usar localStorage */
+            if (typeof localStorage != "undefined") {
+                /* Eliminación de las entradas nombrePersona, apellidoPersona y mailPersona en el localStorage */
+                /* Nota del autor: sessionStorage.clear(); eliminaría también el conjunto de las entradas del localStorage */
+                localStorage.removeItem("nombrePersona");
+                localStorage.removeItem("apellidoPersona");
+                localStorage.removeItem("mailPersona");
+                /* Visualización de control */
+                denominacion = "Contenido del localStorage (después de la eliminación)";
+                document.getElementById("denominacion").innerHTML = denominacion;
+                document.getElementById("nombrePersona").innerHTML = "";
+                document.getElementById("apellidoPersona").innerHTML = "";
+                document.getElementById("mailPersona").innerHTML = "";
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+
+        };
+
+    </script>
+
+    <title>Local_Storage_01_UTF8</title>
+</head>
+
+<body>
+    <!-- Título de la operación -->
+    <h1>Ediciones ENI - JavaScript - LOCAL_STORAGE_01</h1>
+    <p>A parte de ver en pantalla la información con la que jugamos de "Local Storage", <br>
+        también podemos verla accediendo a la consola: <br>
+        <b> Aplicación / Almacenamiento / Almacenamiento local / file:// </b>
+    </p>
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+
+        /* Visualización del nombre del script */
+        alert("LOCAL_STORAGE_01");
+
+    </script>
+
+    <!-- Formulario con un botón de escritura un botón de lectura y un botón de eliminación -->
+    <form>
+        <input type="button" id="botonEcritura" value="Ecritura en localStorage" onclick="escribirLocalStorage();" />
+        <br />
+        <input type="button" id="botonLectura" value="Lectura desde localStorage" onclick="leerLocalStorage();" />
+        <br />
+        <input type="button" id="botonEliminacion" value="Eliminación de la entrada en localStorage"
+            onclick="eliminarLocalStorage();" />
+    </form>
+
+    <!-- Visualización del contenido del sistema de almacenar -->
+    <br />
+    <span id="denominacion"></span>
+    <br />
+    <span id="nombrePersona"></span>
+    <br />
+    <span id="apellidoPersona"></span>
+    <br />
+    <span id="mailPersona"></span>
+</body>
+
+</html>
