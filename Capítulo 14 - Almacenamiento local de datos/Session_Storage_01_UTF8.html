@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+NOMBRE DEL SCRIPT : SESSION_STORAGE_01.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 09/01/2023
+OBJETIVO : Almacenamiento con utilización de sessionStorage
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session_Storage_01_UTF8</title>
+</head>
+
+<body>
+    <!-- Título de la operación -->
+    <h1>Ediciones ENI - JavaScript - SESSION_STORAGE</h1>
+
+    <!-- Definición de la capa en la que se mostrará el número de visitas -->
+    Número de visita(s) a esta página : <div id="visitas"></div>
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+
+        /* Visualización del nombre del script */
+        alert("SESSION_STORAGE");
+
+        /* Detección de la posibilidad de hacer un almacenamiento local via sessionStorage */
+        if (typeof sessionStorage != "undefined") {
+
+            /* Recuperación del valor del número de visita(s) desde el almacenamiento sessionStorage */
+            var numeroVisita = sessionStorage.getItem("numeroVisita");
+
+            /* Comprobación de la presencia del contador de visita(s) */
+            if (numeroVisita != null) {
+                /* Conversión a número entero */
+                numeroVisita = parseInt(numeroVisita);
+                /* Incremento del número de visita(s) */
+                numeroVisita++;
+            } else {
+                /* Inicialización a 1, se trata de la primera visita */
+                numeroVisita = 1;
+            }
+
+            /* Visualización del contador de visitas leído en una ventana alert */
+            // alert("Número de visitas : " + numeroVisita);
+
+            /* Almacenamiento en el almacén sessionStorage */
+            sessionStorage.setItem("numeroVisita", numeroVisita);
+
+            // Visualización en la página
+            document.getElementById("visitas").innerHTML = numeroVisita;
+
+        } else {
+            /* Mensaje de error (sin posibilidad de almacenar sessionStorage) */
+            alert("sessionStorage no está soportado");
+        }
+
+    </script>
+</body>
+
+</html>
