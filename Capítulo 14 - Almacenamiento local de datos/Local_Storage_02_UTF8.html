@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+NOMBRE DEL SCRIPT : LOCAL_STORAGE_02.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN (Rolo27s): 09/01/2023
+OBJETIVO : Almacenamiento con utilización de localStorage y JSON
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+
+        /* Función escribirLocalStorage */
+        function escribirLocalStorage() {
+            /* Verifica la posibilidad de usar localStorage y JSON */
+            if (typeof localStorage != "undefined" && JSON) {
+                /* Definición de un objeto Javascript datosPersona */
+                var datosPersona = {
+                    nombre: document.getElementById("nombre").value,
+                    apellido: document.getElementById("apellido").value,
+                    mail: document.getElementById("mail").value
+                };
+                /* Serialización en un objeto JSON de nombre identidad */
+                localStorage.setItem("identidad", JSON.stringify(datosPersona));
+                /* Visualización de control */
+                alert("Registro en localStorage realizado");
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+        };
+
+        /* Función eliminarLocalStorage */
+        function eliminarLocalStorage() {
+            /* Verifica la posibilidad de usar localStorage y JSON */
+            if (typeof localStorage != "undefined" && JSON) {
+                /* Eliminación de la entrada identidad en el localStorage */
+                /* Nota del autor: sessionStorage.clear(); eliminaría también el conjunto de entradas del localStorage */
+                localStorage.removeItem("identidad");
+
+                /* Con esta funcion forzariamos a eliminar los archivos de local Storage */
+                /* Al haber corregido sessionStorage.removeItem("identidad"); por localStorage.removeItem("identidad"); ya no es necesario*/
+                /* sessionStorage.clear(); */
+
+                /* Actualización de los campos de visualización (<input type="texto" ... />) */
+                document.getElementById("nombre").value = "";
+                document.getElementById("apellido").value = "";
+                document.getElementById("mail").value = "";
+                /* Visualización de control */
+                alert("Eliminación de la entrada identidad en el localStorage realizada");
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+        };
+
+    </script>
+
+    <title>Local_Storage_02_UTF8</title>
+</head>
+
+<body>
+    <!-- Título de la operación -->
+    <h1>Ediciones ENI - JavaScript - LOCAL_STORAGE_02</h1>
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+
+        /* Visualización del nombre del script */
+        alert("LOCAL_STORAGE_02");
+
+    </script>
+
+    <!-- Tabla de introducción de datos y de visualización de los campos nom, apellido y mail -->
+    <table>
+        <tr>
+            <td>Nombre</td>
+            <td>
+                <input type="text" id="nombre" value="" size="40" />
+            </td>
+        </tr>
+        <tr>
+            <td>Apellido</td>
+            <td>
+                <input type="text" id="apellido" value="" size="40" />
+            </td>
+        </tr>
+        <tr>
+            <td>Mail</td>
+            <td>
+                <input type="text" id="mail" value="" size="40" />
+            </td>
+        </tr>
+    </table>
+
+    <!-- Formulario con botones de escritura de lectura y de eliminación -->
+    <br />
+    <form>
+        <input type="button" id="botonEcritura" value="Ecritura en localStorage" onclick="escribirLocalStorage();" />
+        <br />
+        <input type="button" id="botonLectura" value="Lectura desde localStorage" />
+        <br />
+        <input type="button" id="botonEliminacion" value="Eliminación de la entrada en localStorage"
+            onclick="eliminarLocalStorage();" />
+    </form>
+
+    <!-- Inicio script JavaScript -->
+    <script type='text/javascript'>
+        /* Lectura desde el localStorage */
+        document.getElementById('botonLectura').onclick = function () {
+            /* Verifica la posibilidad de usar localStorage y JSON */
+            if (typeof localStorage != "undefined" && JSON) {
+                /* Deserialización del objeto JSON leído */
+                var datosPersona = JSON.parse(localStorage.getItem("identidad"));
+                /* Actualización de los campos de visualización (<input type="texto" ... />) */
+                document.getElementById("nombre").value = datosPersona.nombre;
+                document.getElementById("apellido").value = datosPersona.apellido;
+                document.getElementById("mail").value = datosPersona.mail;
+                /* Visualización de control */
+                alert("Lectura desde localStorage realizada");
+            } else {
+                /* Mensaje de error (sin posibilidad de almacén localStorage) */
+                alert("localStorage no está soportado");
+            }
+        };
+    </script>
+
+</body>
+
+</html>
