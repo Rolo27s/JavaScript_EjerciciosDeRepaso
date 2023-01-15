@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEO_1</title>
+</head>
+
+<!-- Hoja de estilos incorporada -->
+<style type="text/CSS">
+    html, body, #mi_Mapa{
+        margin: 0;
+        padding: 0;
+        height: 80%;
+    }
+</style>
+
+<!-- Llamamos a la API de Google Maps. sensor=false significa que la app no ofrece localizacion GPS
+ -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<!-- Script para implementar el mapa -->
+<script type="text/javascript">
+    /* Funcion de inicializacion del mapa */
+    function inicializarMapa() {
+        /* Comprobamos que el navegador soporta el API de geolocalizacion (W3C) */
+        if (!navigator.geolocation) {
+            /* Mensaje de alerta */
+            alert("Su navegador no soporta geolocalizacion");
+            return false;
+        }
+        /* Definicion de la posicion de centrado del mapa en Madrid */
+        let centreGoogleMap = new google.maps.LatLong(40.416875, -3.703308);
+
+        /* Definicion de las opciones del mapa */
+        let optionsGoogleMap =
+        {
+            /* Factor de zoom*/
+            zoom: 8,
+            /* Punto de centrado */
+            center: centreGoogleMap,
+            /* Modo de visualizacion del mapa */
+            /* NB: google.maps.mapTypeId.ROADMAP → Visualizacion en modo Plan */
+            /* NB: google.maps.mapTypeId.SATELLITE → Visualizacion en modo Satelite */
+            /* NB: google.maps.mapTypeId.HYBRID → Visualizacion en modo Mixto (Plano/Satelite) */
+            /* NB: google.maps.mapTypeId.TERRAIN → Visualizacion en modo Relieve */
+            mapTypeId: google.maps.mapTypeId.ROADMAP
+        }
+
+        /* Uicacion del mapa en la capa mi Mapa */
+        let mi_Mapa = new google.maps.map(document.getElementById("mi_Mapa"), optionsGoogleMap);
+    }
+
+</script>
+
+<body onload="inicializarMapa()">
+    <h1>Ediciones ENI - JavaScript - GEO_01</h1>
+    <script type="text/javascript">alert("GEO_01"); </script>
+
+    <div id="mi_Mapa" style="width:100%; height:100%;"></div>
+
+    <!-- Mensaje a los usuarios con navegador sin JS -->
+    <noscript>
+        <p>Observacion importante:</p>
+        <p>Para utilizar un mapa de tipo Google Maps, JavaScript tiene que estar activado en su navegador.</p>
+    </noscript>
+
+    <!-- Visualizacion del codigo fuente -->
+    <br>
+    <center>
+        <a href="JavaScript:window.location='view-source:' + window.location">Codigo fuente</a>
+    </center>
+</body>
+
+</html>

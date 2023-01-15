@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : GEO_03.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Gestión mapa Google Map
+        Mapa del oeste de Francia
+		(marcador sobre Rennes y círculos de población
+		en las 4 ciudades de Bretaña)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+	<!-- Inicio encabezado script HTML -->
+	<head>
+
+		<!-- Etiqueta meta http-equiv & content -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Etiqueta meta que define la zona visualizable -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=yes"/>
+		<!-- Nota del autor: El meta tag viewport indica al navegador el comportamiento
+		<!--      que debe adoptar para visualizar una página -->
+		<!--      initial-scale=1.0 : Apertura de la página con una escala del 100% -->
+		<!--      user-scalable=yes : Zoom posible por parte del usuario -->
+
+		<!-- Hoja de estilos CSS -->
+		<style type="text/css">
+		
+			html, body, #miMapa {
+				margin: 0;
+				padding: 0;
+				height: 80%;
+			}
+
+		</style>
+
+		<!-- Título del script HTML -->
+		<title>GEO_03</title>
+
+		<!-- Llamada del API Google Map -->
+		<script 
+			type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=ma_cle_api_google_map">
+		</script>
+
+		<!-- Script Javascript de implementación del mapa -->
+		<script type="text/javascript">
+		
+			/* Función de inicialización del mapa */
+			function initializarMapa() {
+
+				/* Prueba para saber si el navegador soporta el API de geolocalización (W3C) */
+				if (!navigator.geolocation) {
+					/* Mensaje de alerta */
+					alert("Su navegador no soporta la geolocalización");
+					/* Valor de retorno */
+					return false
+				}
+
+				/* Definición de la posición central del mapa (centro en el ayuntamiento de la ciudad de Rennes) */
+				var centroGoogleMap = new google.maps.LatLng(48.111411, -1.680073);
+
+				/* Definición de las opciones del mapa */
+				var opcionesGoogleMap = {
+					/* Factor de zoom */
+					zoom : 8,
+					/* Punto de centrado */
+					center : centroGoogleMap,
+					/* Modo de visualización del mapa (vista mapa de cparadaas) */
+					/* Nota del autor:
+					/* - google.maps.mapTypeId.ROADMAP   -> Modo Plan */
+					/* - google.maps.mapTypeId.SATELLITE -> Modo Satélite */
+					/* - google.maps.mapTypeId.HYBRID    -> Modo Plano o Satélite) */
+					/* - google.maps.mapTypeId.TERRAIN   -> Modo Relieve */
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				}
+
+				/* Implementación del mapa en el mapa miMapa */
+				var miMapa = new google.maps.Map(document.getElementoById("miMapa"), opcionesGoogleMap);
+				
+				/* Implementación de un marcador para partir de la ciudad de Rennes */
+				/* NB1 : posición define la posición en latitud/longitud del marcador */
+				/*       map permite la asignación del marcador al mapa */
+				/* NB2 : La implementación del marcador debe seguir la visualización
+				         del mapa en el mapa (y no a la inversa) */
+				var marcadorRennes = new google.maps.Marker({
+					position : new google.maps.LatLng(48.111411, -1.680073),
+					map : miMapa
+				});
+
+				/* Implementación de un marcador para partir de la ciudad de Quimper */
+				/* NB1 : posición define la posición en latitud/longitud del marcador */
+				/*       map permite la asignación del marcador al mapa */
+				/* NB2 : La implementación del marcador debe seguir la visualización
+				         del mapa en el mapa (y no a la inversa) */
+				var iamgenMarcadorQuimper = "beachflag.png";
+				var marcadorQuimper = new google.maps.Marker({
+					position : new google.maps.LatLng(48, -4.1),
+					map : miMapa,
+					icon : iamgenMarcadorQuimper
+				});
+
+				/*
+				 Implementación de un círculo que representa la población
+				 en el mapa para las 4 ciudades de Bretaña
+				*/
+				/* Declaración de la tabla de las ciudades */
+				var listaCiudades = {};
+				/* Argumentos de Rennes */
+				listaCiudades['Rennes'] = {
+					position : new google.maps.LatLng(48.0833, -1.6833),
+					population : 207178
+				};
+				/* Argumentos de Quimper */
+				listaCiudades['Quimper'] = {
+					position : new google.maps.LatLng(48, -4.1),
+					population : 63550
+				};
+				/* Argumentos de Vannes */
+				listaCiudades['Vannes'] = {
+					position : new google.maps.LatLng(47.6667, -2.75),
+					population : 52515
+				};
+				/* Argumentos de Saint-Brieuc */
+				listaCiudades['Saint-Brieuc'] = {
+					position : new google.maps.LatLng(48.5167, -2.7833),
+					population : 46209
+				};
+				/* Escaneo de la tabla listaCiudades para la construcción de un círculo */
+				/* de tamaño proporcional a la población de cada ciudad */
+				for (var ciudad in listaCiudades) {
+					/* Construcción de un círculo de radio calculado */
+					/* a partir de la población (división por 20) */
+					var opcionesCirculo = {
+						strokeColor : "#FF0000",
+						strokeOpacity : 0.8,
+						strokeWeight : 2,
+						fillColor : "#FF0000",
+						fillOpacity : 0.35,
+						map : miMapa,
+						center : listaCiudades[ciudad].position,
+						radius : listaCiudades[ciudad].population / 20
+					};
+					/* Pintar el círculo */
+					circuloCiudad= new google.maps.Circle(opcionesCirculo);
+				}				
+				
+			}
+
+			/* Llamada a la función initializarMapa por el administrador de eventos */
+			google.maps.event.addDomListaner(window, "load", initializarMapa)
+			
+		</script>
+
+	</head>
+
+	<!-- Inicio sección body del script HTML -->
+	<body onload="initializarMapa()">
+
+		<!-- Título de la operación -->
+		<h1>Ediciones ENI - JavaScript - GEO_03</h1>
+
+		<!-- Inicio script JavaScript -->
+		<script type="text/javascript">
+		
+			/* Visualización del nombre del script */
+			alert("GEO_03");
+
+		</script>
+
+		<!-- Definición de la capa
+		     en la que se mostrará el mapa -->
+		<div id="miMapa" style="width:100%; height:100%"></div>
+
+		<!-- Mensaje con destino a los internautas
+		     con un navegador sin Javascript -->
+		<noscript>
+			<p>
+				Nota importante :
+			</p>
+			<p>
+				Para usar una mapa de tipo Google Map
+				es necesario que JavaScript esté activado en su navegador.
+			</p>
+		</noscript>
+
+	</body>
+
+</html>

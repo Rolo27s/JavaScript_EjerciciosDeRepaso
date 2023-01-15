@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : GEO_06.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Gestión mapa Google Map
+        Mapa de Rennes (Street View)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+	<!-- Inicio encabezado script HTML -->
+	<head>
+
+		<!-- Etiqueta meta http-equiv & content -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Etiqueta meta que define la zona visualizable -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=yes"/>
+		<!-- Nota del autor: initial-scale=1.0 : Apertura de la página con una escala del 100% -->
+		<!--      user-scalable=yes : Zoom posible por parte del usuario -->
+
+		<!-- Hoja de estilos CSS -->
+		<style type="text/css">
+		
+			#miMapa {
+				height: 100%;
+			}
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+		</style>
+
+		<!-- Título del script HTML -->
+		<title>GEO_06</title>
+
+		<!-- Llamada del API Google Map -->
+		<script
+			type="text/javascript"
+			async defer
+			src="https://maps.googleapis.com/maps/api/js
+			?key=ma_cle_api_google_map
+			&callback=initializarMapa">
+		</script>
+		
+		<!-- Tratamiento del mapa -->
+		<script type="text/javascript">
+	
+			/* Variables */
+			var map;
+			var panorama;
+
+			/* Función initializarMapa*/
+			function initializarMapa() {
+        
+				/* Prueba para saber si el navegador soporta el API
+				   de geolocalización (W3C) */
+				if (!navigator.geolocation) {
+					/* Mensaje de alerta */
+					alert("Su navegador no soporta la geolocalización");
+					/* Valor de retorno */
+					return false
+				}
+				
+				/* Implementación del mapa en el mapa miMapa */
+				var ayuntamientoRennes = {lat: 48.111411, lng: -1.680073};
+				map = new google.maps.Map(document.getElementoById('miMapa'), {
+					center: ayuntamientoRennes,
+					zoom: 16,
+					streetViewControl: false
+				});
+				
+				// Definición de la Street View
+				var sv = new google.maps.StreetViewService();
+
+				/* Implementación de la vista Street View en el mapa miPanorama */
+				panorama = new google.maps
+				.StreetViewPanorama(document.getElementoById('miPanorama'));
+				
+				// Definición de la posición de inicio para la StreetView
+				sv.getPanorama({location: ayuntamientoRennes, radius: 50},
+				visualizationStreetView);
+
+				// Añadir listener sobre los puntos pulsados en el mapa
+				// para solicitar el servicio Street View
+				map.addListaner('click', function(event) {
+					sv.getPanorama({location: event.latLng, radius: 50},
+					visualizationStreetView);
+				});
+				
+			}
+
+			/* Función visualizationStreetView
+			   Gestión de la funcionalidad Street View) */
+			function visualizationStreetView(data, estado) {
+				
+				// Street View disponible
+				if (estado === 'OK') {
+					
+					// Implementación del marcador en el mapa
+					var marker = new google.maps.Marker({
+						// Posición en latitud/longitud
+						position: data.location.latLng,
+						// Mapa sobre el que agregar el marcador
+						map: map,
+						// Título de la marca (si está disponible)
+						title: data.location.descripción
+					});
+					
+					// Implementación del listener en el marcador definido
+					marker.addListaner('click', function() {
+						// Localización del marcador
+						var markerPanoID = data.location.pano;
+						// Implementación del marcador
+						panorama.setPano(markerPanoID);
+					});
+					
+					// Visualización de la vista Street View
+					panorama.setPano(data.location.pano);
+					panorama.setVisible(true);
+									
+				} else {
+					// Street View no disponible
+					console.error('Street View no disponible');
+				}
+			
+			}
+    
+		</script>
+    
+	</head>
+		
+	<body>
+	
+		<!-- Título de la operación -->
+		<h1>Ediciones ENI - JavaScript - GEO_06</h1>
+
+		<!-- Inicio script JavaScript -->
+		<script type="text/javascript">
+		
+			/* Visualización del nombre del script */
+			alert("GEO_06");
+
+		</script>
+
+		<!-- Definición de la capa en la que
+		     se visualizará el mapa -->
+		<div id="miMapa" style="width: 45%; height: 100%;float:left"></div>
+
+		<!-- Definición de la capa en la que
+		     la vista Street View se visualizará -->
+		<div id="miPanorama" style="width: 45%; height: 100%;float:left"></div>	
+
+		<!-- Mensaje con destino a los internautas con un navegador sin Javascript -->
+		<noscript>
+			<p>
+				Nota importante :
+			</p>
+			<p>
+				Para usar una mapa de tipo Google Map es necesario que JavaScript esté activado en su navegador.
+			</p>
+		</noscript>	
+
+	</body>
+
+</html>

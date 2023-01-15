@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : GEO_04.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Gestión mapa Google Map
+        Mapa del oeste de Francia (información meteorológica)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+	<!-- Inicio encabezado script HTML -->
+	<head>
+
+		<!-- Etiqueta meta http-equiv & content -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Etiqueta meta que define la zona visualizable -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=yes"/>
+		<!-- Nota del autor: El meta tag viewport indica al navegador el comportamiento
+		<!--      que debe adoptar para visualizar una página -->
+		<!--      initial-scale=1.0 : Apertura de la página con una escala del 100% -->
+		<!--      user-scalable=yes : Zoom posible por parte del usuario -->
+
+		<!-- Hoja de estilos CSS -->
+		<style type="text/css">
+		
+			html, body {
+			  width: 100%;
+			  height: 100%;
+			  margin: 0;
+			  padding: 0;
+			}
+			#miMapa {
+			  width: 100%;
+			  height: 100%;
+			}
+			.gm-style-iw {
+			  text-align: center;
+			}
+			
+		</style>
+
+		<!-- Título del script HTML -->
+		<title>GEO_04</title>
+
+		<!-- Llamada del API Google Map -->
+		<script 
+			type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=ma_cle_api_google_map">
+		</script>
+
+		<!-- Script Javascript de implementación del mapa -->
+		<script type="text/javascript">
+		
+			/*
+			  Variables
+			*/
+			// Mapa
+			var miMapa;
+			// Datos meteorológicso en formato JSON
+			var geoJSON;													    	
+			// Consulta al servidor de datos OpenWeatherMap
+			var request;
+			// Clave API OpenWeatherMap			
+			var openWeatherMapKey = "ma_cle_api_openweathermap";
+		
+			/* Función de inicialización del mapa */
+			function initializarMapa() {
+
+				/* Prueba para saber si el navegador
+				   soporta el API de geolocalización (W3C) */
+				if (!navigator.geolocation) {
+					/* Mensaje de alerta */
+					alert("Su navegador no soporta la geolocalización");
+					/* Valor de retorno */
+					return false
+				}
+
+				/* Definición de la posición central del mapa
+				   (centro en el ayuntamiento de la ciudad de Rennes) */
+				var centroGoogleMap = new google.maps.LatLng(48.111411, -1.680073);
+
+				/* Definición de las opciones del mapa */
+				var opcionesGoogleMap = {
+					/* Factor de zoom */
+					zoom : 8,
+					/* Punto de centrado */
+					center : centroGoogleMap,
+					/* Modo de visualización del mapa (vista mapa de cparadaas) */
+					/* Nota del autor:
+					/* - google.maps.mapTypeId.ROADMAP   -> Modo Plan */
+					/* - google.maps.mapTypeId.SATELLITE -> Modo Satélite */
+					/* - google.maps.mapTypeId.HYBRID    -> Modo Plano o Satélite) */
+					/* - google.maps.mapTypeId.TERRAIN   -> Modo Relieve */
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				}
+
+				/* Implementación del mapa en el mapa miMapa */
+				miMapa = new google.maps.Map
+				(document.getElementoById("miMapa"), opcionesGoogleMap);
+				
+				/* Implementación de listener para hacer consultas meteorológica */
+				google.maps.event.addListaner(miMapa, 'idle', getWeather);
+				
+				/* Definición de la información a situar en las ventanas popup */
+				miMapa.data.addListaner('click', function(event) {
+					// Tiempo francés
+					var tiempo_frances ="";					
+					switch(event.feature.getProperty("weather")) {
+						case "Mist":
+							tiempo_frances = "Nublado";
+							break;
+						case "Fog":
+							tiempo_frances = "Nublado";
+							break;
+						case "Clouds":
+							tiempo_frances = "Tiempo nuvoso";
+							break;
+						case "Rain":
+							tiempo_frances = "Tiempo lluvioso";
+							break;
+						case "Clear":
+							tiempo_frances = "Tiempo claro, soleado";
+							break;
+						case "Haze":
+							tiempo_frances = "Tiempo con bruma";
+							break;							
+						case "Snow":
+							tiempo_frances = "Tiempo con nieve";
+							break;							
+						default:
+							tiempo_frances = event.feature.getProperty("weather");
+					}
+					// Inicialización de una ventana de información
+					// para la ciudad seleccionada
+					var infowindow = new google.maps.InfoWindow();					
+					// Implementación de la información meteorológica
+					infowindow.setContent(
+						"<img src=" + event.feature.getProperty("icon") + ">"
+						+ "<br /><strong>Ciudad: " + event.feature.getProperty("city") + "</strong>"
+						+ "<br />Temperatura : " + event.feature.getProperty("temperature") + "&deg;C"
+						+ "<br />Tiempo : " + tiempo_frances
+						+ "<br />Humedad : " + event.feature.getProperty("humidity")
+					);
+					// Argumentos de la ventana de información
+					infowindow.setOpciones({
+						position:{
+							lat: event.latLng.lat(),
+							lng: event.latLng.lng()
+						},
+						pixelOffset: {
+							width: 0,
+							height: -15
+						}
+					});
+					// Visualización de la ventana de información
+					infowindow.open(miMapa);
+				});
+
+			}
+			
+			/* Función getWeather (Recuperación de los datos meteorológicos) */
+			function getWeather() {
+				// Recuperación de los limites del mapa
+				var bounds = miMapa.getBounds();
+				// Coordenadas Norte-Este
+				var NE = bounds.getNorthEast();
+				// Coordenadas Sur-oeste
+				var SW = bounds.getSouthWest();
+				// Consulta al servidor
+				var requestString = 
+				"http://api.openweathermap.org/data/2.5/box/city?bbox="
+				+ SW.lng() + "," + NE.lat() + ","
+				+ NE.lng() + "," + SW.lat() + ","
+				+ miMapa.getZoom()
+				+ "&cluster=yes&format=json"
+				+ "&APPID=" + openWeatherMapKey;
+				// Inicialización de una consulta XMLHttpRequest
+				request = new XMLHttpRequest();
+				request.onload = proccessResults;
+				// Enviar la consulta
+				request.open("get", requestString, true);
+				request.send();								
+			};
+			
+			/* Función proccessResults
+			   Recuperación de los datos JSON y tratamiento) */
+			var proccessResults = function() {
+				// Inserción en tabla del flujo JSON
+				var results = JSON.parse(this.responseText);
+				// Tratamiento de las respuestas
+				if (results.list.length > 0) {
+					// Borrado de los datos geoJSON
+					geoJSON = {
+						type: "FeatureCollection",
+						features: []
+					};
+					miMapa.data.forEach(function(feature) {
+						miMapa.data.remove(feature);
+					});
+					// Escaneo de los datos
+					for (var i = 0; i < results.list.length; i++) {
+						geoJSON.features.push(jsonToGeoJson(results.list[i]));
+					}
+					// Pintar las marcas en el mapa
+					miMapa.data.addGeoJson(geoJSON);
+				}
+			};
+			
+			/* Función jsonToGeoJson (Conversión de los datos en geoJson) */
+			function jsonToGeoJson(weatherItem) {
+				// Dato en formato geoJson
+				var feature = {
+					type: "Feature",
+					properties: {
+						city: weatherItem.name,
+						weather: weatherItem.weather[0].main,
+						temperature: weatherItem.main.temp,
+						min: weatherItem.main.temp_min,
+						max: weatherItem.main.temp_max,
+						humidity: weatherItem.main.humidity,
+						pressure: weatherItem.main.pressure,
+						windSpeed: weatherItem.wind.speed,
+						windDegrees: weatherItem.wind.deg,
+						windGust: weatherItem.wind.gust,
+						icon: "http://openweathermap.org/img/w/"
+						  + weatherItem.weather[0].icon  + ".png",
+						coordinates: [weatherItem.coord.Lon, weatherItem.coord.Lat]
+					},
+					geometry: {
+						type: "Point",
+						coordinates: [weatherItem.coord.Lon, weatherItem.coord.Lat]
+					}
+				};
+				miMapa.data.setStyle(function(feature) {
+					return {
+						icon: {
+							url: feature.getProperty('icon'),
+							anchor: new google.maps.Punto(25, 25)
+						}
+					};
+				});
+				// Valor de retorno
+				return feature;
+			};
+			
+		</script>
+
+	</head>
+
+	<!-- Inicio sección body del script HTML -->
+	<body onload="initializarMapa()">
+
+		<!-- Título de la operación -->
+		<h1>Ediciones ENI - JavaScript - GEO_04</h1>
+
+		<!-- Inicio script JavaScript -->
+		<script type="text/javascript">
+		
+			/* Visualización del nombre del script */
+			alert("GEO_04");
+
+		</script>
+
+		<!-- Definición de la capa en la que
+		     se visualizará el mapa -->
+		<div id="miMapa" style="width:100%; height:100%"></div>
+
+		<!-- Mensaje con destino a los internautas
+		     con un navegador sin Javascript -->
+		<noscript>
+			<p>
+				Nota importante :
+			</p>
+			<p>
+				Para usar una mapa de tipo Google Map
+				es necesario que JavaScript esté activado en su navegador.
+			</p>
+		</noscript>
+
+	</body>
+
+</html>

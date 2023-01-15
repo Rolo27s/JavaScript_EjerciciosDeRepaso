@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : GEO_05.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Gestión cate Google Map
+        Mapa de Rennes Centre-Sud (con intÃ©gration de photos)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+	<!-- Inicio encabezado script HTML -->
+	<head>
+
+		<!-- Etiqueta meta http-equiv & content -->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Etiqueta meta que define la zona visualizable -->
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=yes"/>
+		<!-- Nota del autor: El meta tag viewport indica al navegador el comportamiento
+		<!--      que debe adoptar para visualizar una página -->
+		<!--      initial-scale=1.0 : Apertura de la página con una escala al 100% -->
+		<!--      user-scalable=yes : Zoom posible por parte del usuario -->
+
+		<!-- Hoja de estilos CSS -->
+		<style>
+			
+			/* Style CSS para las secciones html y body */
+			html, body {
+				height: 80%;
+				margin: 0;
+				padding: 0;
+			}
+			
+			/* Estilo CSS para la visualización de los marcos de foto */
+			#marcosFoto {
+				border: 1px solid #ccc;
+				width: 300px;
+				max-height: 300px;
+				background: #fff;
+				padding: 5px;
+				font-family: Arial;
+				font-size: 12px;
+			}
+		
+		</style>
+
+		<!-- Título del script HTML -->
+		<title>GEO_05</title>
+
+		<!-- Llamada del API Google Map -->
+		<script 
+			type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=ma_cle_api_google_map">
+		</script>
+
+		<!-- Script Javascript de implementación del mapa -->
+		<script type="text/javascript">
+		
+			/* Función de inicialización del mapa */
+			function initializarMapa() {
+
+				/* Prueba para saber si el navegador soporta el API de geolocalización (W3C) */
+				if (!navigator.geolocation) {
+					/* Mensaje de alerta */
+					alert("Su navegador no soporta la geolocalización");
+					/* Valor de retorno */
+					return false
+				}
+
+				/* Definición de la posición central del mapa (centro en el ayuntamiento de la ciudad de Rennes) */
+				var centroGoogleMap = new google.maps.LatLng(48.111411, -1.680073);
+				/* Definición de las opciones del mapa */
+				var opcionesGoogleMap = {
+					/* Factor de zoom */
+					zoom : 16,
+					/* Punto de centrado */
+					center : centroGoogleMap,
+					/* Modo de visualización del mapa (vista mapa de cparadaas) */
+					/* Nota del autor:
+					/* - google.maps.mapTypeId.ROADMAP   -> Modo Plan */
+					/* - google.maps.mapTypeId.SATELLITE -> Modo Satélite */
+					/* - google.maps.mapTypeId.HYBRID    -> Modo Plano o Satélite) */
+					/* - google.maps.mapTypeId.TERRAIN   -> Modo Relieve */
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				}
+
+				/* Implementación del mapa en el mapa miMapa */
+				var miMapa = new google.maps.Map(document.getElementoById("miMapa"), opcionesGoogleMap);
+				
+				/*
+					Implementación de un marcador para empezar desde el ayuntamiento de Rennes
+				*/
+				/* NB1 : posición define la posición en latitud/longitud del marcador */
+				/*       map permite la asignación del marcador al mapa */
+				/* NB2 : La implementación del marcador debe seguir la visualización */
+				/*       del mapa en el mapa (y no a la inversa) */
+				var marcador1 = new google.maps.Marker({
+					position : new google.maps.LatLng(48.111411, -1.680073),
+					map : miMapa,
+					title : "Ayuntamiento de Rennes"
+				});
+				/* Texto explicativo (con foto integrada) */
+				var comentarios1 = "<div>"
+									+ "<h1>Ayuntamiento de Rennes</h1>"
+									+ "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Fa%C3%A7ade_de_l%27h%C3%B4tel_de_ville%2C_Rennes%2C_Francia.jpg/260px-Fa%C3%A7ade_de_l%27h%C3%B4tel_de_ville%2C_Rennes%2C_Francia.jpg'>"
+									+ "</div>";
+				/* Constructor de la ventana explicativa asociada */
+				var ventana1 = new google.maps.InfoWindow({
+					content : comentarios1
+				});
+				/* Visualización de la ventana explicativa con el clic en el marcador */
+				google.maps.event.addListaner(marcador1, "click", function() {
+					ventana1.open(miMapa, marcador1);
+				});				
+				
+				/*
+					Implementación de un marcador para empezar del parque del Thabor
+				*/
+				/* NB1 : posición define la posición en latitud/longitud del marcador */
+				/*       map permite la asignación del marcador al mapa */
+				/* NB2 : La implementación del marcador debe seguir la visualización */
+				/*       del mapa en el mapa (y no a la inversa) */
+				var marcador2 = new google.maps.Marker({
+					position : new google.maps.LatLng(48.1141667, -1.67),
+					map : miMapa,
+					title : "Parque del Thabor"
+				});
+				/* Texto explicativo (con foto integrada) */
+				var comentarios2 = "<div>"
+									+ "<h1>Parque del Thabor</h1>"
+									+ "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Parque_du_thabor_DSC_4491.JPG/280px-Parque_du_thabor_DSC_4491.JPG'>"
+									+ "</div>";
+				/* Constructor de la ventana explicativa asociada */
+				var ventana2 = new google.maps.InfoWindow({
+					content : comentarios2
+				});
+				/* Visualización de la ventana explicativa asociada al clic en el marcador */
+				google.maps.event.addListaner(marcador2, "click", function() {
+					ventana2.open(miMapa, marcador2);
+				});				
+				
+				/* Llamada a la función initializarMapa por el administrador de eventos */
+				google.maps.event.addDomListaner(window, "load", initializarMapa)
+
+			}
+
+			/* Llamada a la función initializarMapa por el administrador de eventos */
+			google.maps.event.addDomListaner(window, "load", initializarMapa)
+			
+		</script>
+	</head>
+
+	<!-- Inicio sección body del script HTML -->
+	<body>
+
+		<!-- Título de la operación -->
+		<h1>Ediciones ENI - JavaScript - GEO_05</h1>
+
+		<!-- Inicio script JavaScript -->
+		<script type="text/javascript">
+		
+			/* Visualización del nombre del script */
+			alert("GEO_05");
+
+		</script>
+
+		<!-- Definición de la capa
+		     en la que se mostrará el mapa -->
+		<div id="miMapa" style="width:100%; height:100%"></div>
+
+		<!-- Mensaje con destino a los internautas
+		     con un navegador sin Javascript -->
+		<noscript>
+			<p>
+				Nota importante :
+			</p>
+			<p>
+				Para usar un mapa de tipo Google Map
+				es necesario que JavaScript esté activado en su navegador.
+			</p>
+		</noscript>
+
+	</body>
+
+</html>
