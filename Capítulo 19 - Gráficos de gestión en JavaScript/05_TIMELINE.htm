@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--
+NOMBRE DEL SCRIPT : TIMELINE.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Pintar un gráfico de tipo timeline (Ejemplo Google Charts)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>TIMELINE</title>
+
+	<!-- Carga del API Google Chart -->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<!-- Carga del módulo visualization en versión 1 con la opción del paquete timeline -->
+	<script type="text/javascript">
+		google.load('visualization', '1', {
+			packages: ['timeline']
+		});
+	</script>
+
+	<!-- Definición del timeline -->
+	<script type="text/javascript">
+
+		/* Función trazarGrafico */
+		function trazarGrafico() {
+
+			/* Definición de la estructura de la tabla a representar gráficamente */
+			var dataTable = new google.visualization.DataTable();
+			dataTable.addColumn({
+				type: 'string',
+				id: 'Presidente de República francesa'
+			});
+			dataTable.addColumn({
+				type: 'string',
+				id: 'mandato'
+			});
+			dataTable.addColumn({
+				type: 'date',
+				id: 'inicio_mandato'
+			});
+			dataTable.addColumn({
+				type: 'date',
+				id: 'fin_mandato'
+			});
+
+			/* Registros de datos */
+			dataTable.addRows([['François MITTERRAND', '(1981-1995)', new Date(1981, 5, 21), new Date(1995, 5, 17)], ['Jacques CPIRAC', '(1995-2007)', new Date(1995, 5, 17), new Date(2007, 5, 16)], ['Nicolas SARKOZY', '(2007-2012)', new Date(2007, 5, 16), new Date(2012, 5, 15)]]);
+
+			/* Opciones de representación gráfica */
+			/* Nota del autor: Para las numerosas opciones, consulte
+			/*      https://developers.google.com/chart/interactive/docs/gallery/timeline */
+			var options = {
+				colors: ['Red', 'Blue', 'Naranja'],
+			};
+
+			/* Inicialización del gráfico */
+			var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+
+			/* Pintar el gráfico */
+			chart.draw(dataTable);
+
+		}
+
+		/* Visualización automática del gráfico */
+		google.setOnLoadCallback(trazarGrafico);
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - TIMELINE</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Visualización del nombre del script */
+		alert("TIMELINE");
+
+	</script>
+
+	<!-- Definición de la capa de visualización del gráfico -->
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+</body>
+
+</html>

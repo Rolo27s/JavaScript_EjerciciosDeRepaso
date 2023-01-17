@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--
+NOMBRE DEL SCRIPT : GEOCPART.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Pintar un gráfico de tipo mapa del mundo por país (Ejemplo Google Charts)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>GEOCHART</title>
+
+	<!-- Carga del API Google Chart -->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<!-- Carga del módulo visualization en versión 1 con la opción del paquete geochart -->
+	<script type="text/javascript">
+		google.load('visualization', '1', {
+			packages: ['geochart']
+		});
+	</script>
+
+	<!-- Definición del mapa -->
+	<script type="text/javascript">
+
+		/* Función trazarGrafico */
+		function trazarGrafico() {
+
+			/* Datos a representar gráficamente (Grupo E) */
+			/* Al usas este metodo, los paises deben tener la nomenclatura internacional ISO */
+			/* El segundo numero (en este caso 500) indica la densidad del color. 500 es lo std.
+			Este valor puede servir por ejemplo para jugar con las densidades poblacionales de los diferentes paises */
+			var datos = google.visualization.arrayToDataTable([['País', 'Indicador'], ['Switzerland', 500], ['Ecuador', 500], ['Spain', 500], ['Honduras', 500]]);
+
+			/* Opciones de representación gráfica */
+			/* Nota del autor: Para las numerosas opciones, consulte
+			 /*      https://developers.google.com/chart/interactive/docs/gallery/geochart */
+			var options = {
+				region: 'world',
+				backgroundColor: 'LightBlue',
+				fill: 'Green',
+				datalessRegionColor: 'Yellow',
+				legend: 'null'
+			};
+
+			/* Inicialización del gráfico */
+			var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+
+			/* Pintar el gráfico */
+			chart.draw(datos, options);
+
+		};
+
+		/* Visualización automática del gráfico */
+		google.setOnLoadCallback(trazarGrafico);
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - GEOCHART</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Visualización del nombre del script */
+		alert("GEOCHART");
+
+	</script>
+
+	<!-- Definición de la capa de visualización del gráfico -->
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+</body>
+
+</html>

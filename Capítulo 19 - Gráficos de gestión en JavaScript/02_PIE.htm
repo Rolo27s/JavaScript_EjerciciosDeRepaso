@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--
+NOMBRE DEL SCRIPT : PIE.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Pintar un gráfico de tipo sectores (Ejemplo Google Charts)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>PIE</title>
+
+	<!-- Carga del API Google Chart -->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<!-- Carga del módulo visualization en versión 1 con la opción del paquete corechart -->
+	<script type="text/javascript">
+		google.load('visualization', '1', {
+			packages: ['corechart']
+		});
+	</script>
+
+	<!-- Definición del mapa -->
+	<script type="text/javascript">
+
+		/* Función trazarGrafico */
+		function trazarGrafico() {
+
+			/* Datos a representar gráficamente */
+			var datos = google.visualization.arrayToDataTable([['País', 'Cualificación (%)'], ['Suecia', 30], ['Ecuador', 20], ['Francia', 40], ['Honduras', 10]]);
+
+			/* Opciones de representación gráfica */
+			/* Nota del autor: Para las numerosas opciones, consulte
+			 /*      https://developers.google.com/chart/interactive/docs/gallery/piechart */
+			var options = {
+				title: 'Porcentaje de opciones de ser primero del grupo E de la Copa del Mundo de Futbol 2014',
+				colors: ['Red', 'Green', 'Blue', 'Grey'],
+				slices: {
+					0: {
+						offset: 0.01
+					},
+					1: {
+						offset: 0.01
+					},
+					2: {
+						offset: 0.20
+					},
+					3: {
+						offset: 0.01
+					}
+				}
+			};
+
+			/* Inicialización del gráfico */
+			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+			/* Pintar el gráfico */
+			chart.draw(datos, options);
+
+		};
+
+		/* Visualización automática del gráfico */
+		google.setOnLoadCallback(trazarGrafico);
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - PIE</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Visualización del nombre del script */
+		alert("PIE");
+
+	</script>
+
+	<!-- Definición de la capa de visualización del gráfico -->
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+</body>
+
+</html>

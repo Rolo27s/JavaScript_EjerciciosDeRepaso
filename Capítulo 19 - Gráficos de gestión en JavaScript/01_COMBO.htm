@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!--
+NOMBRE DEL SCRIPT : COMBO.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Pintar un gráfico de tipo histograma (Ejemplo Google Charts)
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+	<!-- Etiqueta meta -->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<!-- Título del script HTML -->
+	<title>COMBO</title>
+
+	<!-- Carga del API Google Chart -->
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<!-- Carga del módulo visualization en versión 1 con la opción del paquete corechart -->
+	<script type="text/javascript">
+		google.load('visualization', '1', {
+			packages: ['corechart']
+		});
+	</script>
+
+	<!-- Definición delhistograma -->
+	<script type="text/javascript">
+
+		/* Función trazarGrafico */
+		function trazarGrafico() {
+
+			/* Datos a representar gráficamente */
+			var datos = google.visualization.arrayToDataTable([
+				['AnnÃ©e', 'Alemania', 'Francia', 'Italia', 'Media'],
+				['2010', 100, 110, 150, 120],
+				['2011', 120, 130, 200, 150],
+				['2012', 140, 120, 220, 160],
+			]);
+
+			/* Opciones de representación gráfica */
+			/* NB1: La cuarta serie (numeración a partir de 0 de las series) es un media representado por una línea */
+			/* NB2 : Para las numerosas opciones, consulte
+			/*       https://developers.google.com/chart/interactive/docs/gallery/combochart */
+			var options =
+			{
+				title: 'Producción anual del producto LAMBDA por país',
+				vAxis: { title: "Toneladas" },
+				hAxis: { title: "Años" },
+				seriesType: "bars",
+				series: { 3: { type: "line" } }
+			};
+
+			/* Inicialización del gráfico */
+			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+
+			/* Diseño del gráfico */
+			chart.draw(datos, options);
+
+		}
+
+		/* Visualización automática del gráfico */
+		google.setOnLoadCallback(trazarGrafico);
+
+	</script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+	<!-- Título de la operación -->
+	<h1>Ediciones ENI - JavaScript - COMBO</h1>
+
+	<!-- Inicio script JavaScript -->
+	<script type="text/javascript">
+
+		/* Visualización del nombre del script */
+		alert("COMBO");
+
+	</script>
+
+	<!-- Definición de la capa de visualización del gráfico -->
+	<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+</body>
+
+</html>
