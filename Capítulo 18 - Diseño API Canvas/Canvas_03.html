@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+NOMBRE DEL SCRIPT : MORPION_03.htm
+AUTOR : Christian VIGOUROUX
+FECHA DE CREACIÓN : 15/10/2018
+FECHA ÚLTIMA MODIFICACIÓN : 15/10/2018
+OBJETIVO : Juego del Morpion (TicTacToe) - Versión 3
+-->
+
+<!-- Inicio script HTML -->
+<html>
+
+<!-- Inicio encabezado script HTML -->
+
+<head>
+
+    <!-- Etiqueta meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Título del script HTML -->
+    <title>MORPION_03</title>
+
+    <!-- Inicio script JavaScript -->
+    <script type="text/javascript">
+
+        /* Función trazarCuadricula */
+        function trazarCuadricula(x, y, cote) {
+
+            /*
+            Trazar el canvas
+            */
+
+            /* Definición de las propiedades de los trazos */
+            contextoCanvas.strokeStyle = "black";
+            contextoCanvas.lineWidth = 1;
+
+            /* Definición de las propiedades de la cuadrícula */
+            var xInicio = x;
+            var yInicio = y;
+            var longitudLado = cote;
+
+            /* Inicio del recorrido en línea punteada */
+            contextoCanvas.beginPath();
+
+            /* Punto de inicio del trazo (x, y) */
+            contextoCanvas.moveTo(xInicio, yInicio);
+
+            /* Pintar el trazo superior horizontal */
+            contextoCanvas.lineTo(xInicio + longitudLado, yInicio);
+
+            /* Pintar el trazo derecho vertical */
+            contextoCanvas.lineTo(xInicio + longitudLado, yInicio + longitudLado);
+
+            /* Pintar el trazo inferior horizontal */
+            contextoCanvas.lineTo(xInicio, yInicio + longitudLado);
+
+            /* Pintar el trazo izquierdo vertical */
+            contextoCanvas.lineTo(xInicio, yInicio);
+
+            /* Fin para recorrer en línea punteada (opcional) */
+            contextoCanvas.closePath();
+
+            /* Traza efectiva */
+            contextoCanvas.stroke();
+
+        }
+
+    </script>
+
+</head>
+
+<!-- Inicio sección body del script HTML -->
+
+<body>
+
+    <!-- Título de la operación -->
+    <h1>Ediciones ENI - JavaScript - MORPION_03</h1>
+
+    <!-- Inicio script JavaScript -->
+    <script type="text/javascript">
+
+        /* Visualización del nombre del script */
+        alert("MORPION_03");
+
+    </script>
+
+    <!-- Implementación del elemento HTML canvas -->
+    <!-- Nota del autor: - Longitud del canvas : 1000 -->
+    <!--      - Altura del canvas : 800 -->
+    <canvas id="cuadriculaMorpion" width="1000" height="800">
+        Atención, su navegador no soporta el elemento Canvas
+    </canvas>
+
+    <!-- Código Javascript asociado al canvas -->
+    <script type="text/javascript">
+
+        /* Definición de la ubicación del canvas */
+        var ubicacionCanvas = document.getElementById("cuadriculaMorpion");
+
+        /* Definición del contexto del canvas (2D) */
+        var contextoCanvas = ubicacionCanvas.getContext("2d");
+
+        /* Pintar la cuadrícula */
+        for (let linea = 1; linea <= 5; linea++) {
+            for (let columna = 1; columna <= 5; columna++) {
+                trazarCuadricula(linea * 100, columna * 100, 100);
+
+            }
+
+        }
+
+        /* Pintar un cuadrado de color verde en línea 1 & columna 2 */
+        var x, y, lado;
+        contextoCanvas.fillStyle = "green";
+        linea = 1;
+        columna = 2;
+        x = (columna * 100) + 20;
+        y = (linea * 100) + 20;
+        lado = 60;
+        /* fillRect dibuja un rectangulo relleno */
+        contextoCanvas.fillRect(x, y, lado, lado);
+
+        /* Pintar un círculo de color rojo en línea 2 & columna 2 */
+        var xCentroCirculo, yCentroCirculo, RadioCirculo;
+        contextoCanvas.fillStyle = "red";
+        linea = 2;
+        columna = 2;
+        xCentroCirculo = (columna * 100) + 50;
+        ;
+        yCentroCirculo = (linea * 100) + 50;
+        RadioCirculo = 30;
+        /* BeginPath crea un nuevo trazado */
+        contextoCanvas.beginPath();
+        /* El metodo arc tiene los siguientes argumentos:
+        arc(x, y, radius, startAngle, endAngle, counterclockwise)
+        counterclockwise = false: en sentido de las agujas del reloj (por defecto false).
+        startAnglee y endAngle va en radianes.
+        */
+        contextoCanvas.arc(xCentroCirculo, yCentroCirculo, RadioCirculo, 0, 2 * Math.PI, false);
+        /* fill dibuja una forma solida rellenando el contenido del trazado */
+        contextoCanvas.fill();
+
+    </script>
+
+</body>
+
+</html>
